@@ -1,0 +1,37 @@
+import numpy
+import math
+
+f1 = file('../run/prices_64K_0.txt', 'r')
+f2 = file('../run/prices_64K_1.txt', 'r')
+f3 = file('../run/prices_64K_1.txt', 'r')
+f4 = file('../run/prices_64K_1.txt', 'r')
+
+l1 = f1.readlines()[1:]
+l2 = fx.readlines()[1:]
+
+v1 = []
+v2 = []
+abserrs = []
+dists = []
+
+for i,j in zip(l1,l2):
+	fi = float(i)
+	fj = float(j)
+	v1.append(fi)
+	v2.append(fj)
+	diff = fi-fj
+	abserr = 0
+	abserrdiv = 0
+	if (fi != 0) :
+		abserr = abs(diff)/fi
+	dist = pow(diff,2)
+	abserrs.append(abserr)
+	dists.append(dist)
+
+nrmse = numpy.sum(dists)/len(dists)
+nrmse = math.sqrt(nrmse)
+nrmse = nrmse/(numpy.max(v1)-numpy.min(v1))
+
+print "wce = ", numpy.max(abserrs)
+print "rmse = ", nrmse
+

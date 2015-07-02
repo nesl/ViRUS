@@ -1,0 +1,35 @@
+#ifndef VARMATH_H
+#define VARMATH_H
+
+double __var__exp( double arg );
+double __var__fasterexp (double p);
+double __var__fastexp (double p);
+
+double __var__log( double arg );
+double __var__fasterlog (double p);
+double __var__fastlog (double p);
+
+
+// v_* functions match standard API
+#ifdef __cplusplus
+extern "C" {
+#endif
+	double (*v_exp)( double arg );
+	void v_exp_set_qlevel(int lvl);
+	int v_exp_get_qlevel(void);
+	int v_exp_avl_qlevel(void);
+	
+	double (*v_log)( double arg ) = __var__log;
+	void v_log_set_qlevel(int lvl);
+	int v_log_get_qlevel(void);
+	int v_log_avl_qlevel(void);	
+	
+	
+#ifdef __cplusplus
+}
+#endif
+
+
+
+
+#endif

@@ -1,0 +1,26 @@
+all: lib main
+
+lib: 
+	cc -Wall -c varmathlib.c 
+	ar -cvq varmathlib.a varmathlib.o
+so:
+	gcc -O3 -Wall -fPIC -c varmathlib.c 
+	gcc -O3 -shared -Wl,-soname,libvarmath.so.1 -o libvarmath.so.1.0 varmathlib.o
+
+soarm:
+	arm-none-linux-gnueabi-gcc -O3 -Wall -fPIC -c varmathlib.c 
+	arm-none-linux-gnueabi-gcc -O3 -shared -Wl,-soname,libvarmath.so.1 -o libvarmath.so.1.0 varmathlib.o
+
+
+main:
+	cc -o main main.c varmathlib.a -lm
+
+mainso:
+	gcc -Wall -L/opt/lib/ main.c -lvarmath -lm -o main 
+
+install:
+	cp libvarmath.so.1.0 /opt/lib/
+
+clean:
+	rm *so* *o *a main
+
